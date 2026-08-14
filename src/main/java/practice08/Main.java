@@ -31,8 +31,7 @@ public class Main {
         System.out.println(userService.findUser(userA.getId()).getId());
         System.out.print(BLUE + "User's Data: " + RESET);
         System.out.println(userService.findUser(userA.getId()));
-        System.out.println(BLUE + "List of Autos:" + RESET);
-
+        System.out.println(BLUE + "List of the last User's Autos:" + RESET);
         List<Auto> findAutos = userService.findUser(userA.getId()).getAutos();
         for (Auto auto : findAutos) {
             System.out.println(auto);
