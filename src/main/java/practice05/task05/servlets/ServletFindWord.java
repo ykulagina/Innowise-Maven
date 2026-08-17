@@ -1,4 +1,4 @@
-package practice05.task05;
+package practice05.task05.servlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,10 +26,10 @@ public class ServletFindWord extends HttpServlet {
 
     public void init() {}
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<String> wordsFromFile = new ArrayList<>();
         try (InputStream input = getServletContext().getResourceAsStream("/WEB-INF/sample.txt");
              BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
@@ -50,7 +49,7 @@ public class ServletFindWord extends HttpServlet {
         String searchFor = (request.getParameter("searchWord")).trim();
         Pattern pattern = Pattern.compile(searchFor);
         List<String> results = wordsFromFile.stream().filter(pattern.asPredicate()).toList();
-        String result = (results.isEmpty()) ? "{" + searchFor + "} not found." : "{" + searchFor + "} is found!";
+        String result = (results.isEmpty()) ? "'" + searchFor + "' not found." : "'" + searchFor + "' is found!";
         int numberOfTimesEncountered = results.size();
 
         request.setAttribute("resultResponse", result);
