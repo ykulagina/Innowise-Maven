@@ -10,16 +10,16 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-//        List<String> list = FileParser.parseFile("src/main/webapp/WEB-INF/sample.txt");
-//        String searchFor = "dog";
+        String searchFor = "dog";
+        List<String> list = FileParser.parseFile("src/main/webapp/WEB-INF/sample.txt", searchFor);
 //        Pattern pattern = Pattern.compile(searchFor);
-//        List<String> results = list.stream().filter(pattern.asPredicate()).toList();
-//        String result = (results.isEmpty()) ? "Not found." : "Number of times encountered: ";
-//        System.out.print("Word {" + searchFor + "}. " + result);
-//        System.out.println(results.size());
-        BookService bookService = new BookServiceImpl();
-        Book book = new Book("Catcher in the Rye", "J. D. Salinger", 1951);
-        bookService.saveBook(book);
-        System.out.println(bookService.findBook(book.getId()));
+//        List<String> results = list.stream().filter(pattern.asMatchPredicate()).toList();
+        String result = (list.isEmpty()) ? "Not found." : "Number of times encountered: ";
+        System.out.println("Word {" + searchFor + "}. " + result);
+        System.out.println(list.size());
+//        BookService bookService = new BookServiceImpl();
+//        Book book = new Book("Catcher in the Rye", "J. D. Salinger", 1951);
+//        bookService.saveBook(book);
+//        System.out.println(bookService.findBook(book.getId()));
     }
 }

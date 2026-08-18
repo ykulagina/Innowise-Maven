@@ -36,21 +36,21 @@ public class ServletBookManager extends HttpServlet {
         request.getRequestDispatcher("servletBookManagerResult.jsp").forward(request, response);
     }
 
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(request.getParameter("bookId"));
         if (!request.getParameter("bookId").isEmpty()) {
             int id = Integer.parseInt(request.getParameter("bookId"));
             String name = request.getParameter("bookName");
             String author = request.getParameter("bookAuthor");
             int year = Integer.parseInt(request.getParameter("bookYear"));
-            System.out.println(id + " " + name);
             Book updatedBook = bookService.findBook(id);
             updatedBook.setName(name);
             updatedBook.setAuthor(author);
             updatedBook.setYear(year);
             bookService.updateBook(updatedBook);
+            request.setAttribute("bookId", updatedBook.getId());
+            request.setAttribute("bookName", updatedBook.getName());
+            request.setAttribute("bookAuthor", updatedBook.getAuthor());
+            request.setAttribute("bookYear", updatedBook.getYear());
             request.getRequestDispatcher("servletBookManagerUpdated.jsp").forward(request, response);
         }
     }
