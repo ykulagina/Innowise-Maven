@@ -29,10 +29,13 @@ public class ServletFontManager extends HttpServlet {
             try (InputStream input = getServletContext().getResourceAsStream("/WEB-INF/sample.txt");
                  BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
                 list = reader.lines().toList();
-                if (numberOfLines <= list.size()) {
+                if (numberOfLines < 0) {
+                    throw new IllegalArgumentException("Incorrect number of lines entered.");
+                }
+                if (numberOfLines > 0 && numberOfLines <= list.size()) {
                     list = list.subList(0, numberOfLines);
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 System.out.println("File not found. " + e.getMessage());
             }
             request.setAttribute("numberOfLines", numberOfLines);

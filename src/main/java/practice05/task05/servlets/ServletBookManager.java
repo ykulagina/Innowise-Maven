@@ -12,7 +12,7 @@ import practice05.task05.service.BookServiceImpl;
 import java.io.IOException;
 
 /**
- * Class's purpose is to find or update a book's info, found by its ID.
+ * Class's purpose is to find or update a {Book} object, found by its ID.
  * Search is performed against a [books] table in the DB.
  */
 @WebServlet("/servlet-book-manager")

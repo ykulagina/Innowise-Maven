@@ -9,22 +9,6 @@ public class SessionFactoryUtil {
     private static SessionFactory sessionFactory;
     private SessionFactoryUtil() {}
 
-//    static {
-//        try {
-//            Configuration config = new Configuration().configure();
-//            config.addAnnotatedClass(Book.class);
-//            sessionFactory = config.buildSessionFactory();
-//        } catch (Throwable ex) {
-//            // This guarantees you see the initialization error in your logs
-//            System.err.println("Initial SessionFactory creation failed. " + ex);
-//            throw new ExceptionInInitializerError(ex);
-//        }
-//    }
-//
-//    public static SessionFactory getSessionFactory() {
-//        return sessionFactory;
-//    }
-
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
