@@ -1,5 +1,6 @@
 package practice05.task05.servlets;
 
+import com.sun.jdi.connect.IllegalConnectorArgumentsException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -29,14 +30,18 @@ public class ServletFontManager extends HttpServlet {
             try (InputStream input = getServletContext().getResourceAsStream("/WEB-INF/sample.txt");
                  BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
                 list = reader.lines().toList();
-                if (numberOfLines < 0) {
-                    throw new IllegalArgumentException("Incorrect number of lines entered.");
+                if (numberOfLines < 0 || fontSize < 0) {
+                    throw new IllegalArgumentException("Incorrect number entered.");
                 }
-                if (numberOfLines > 0 && numberOfLines <= list.size()) {
+                if (numberOfLines >= 0 && numberOfLines <= list.size()) {
                     list = list.subList(0, numberOfLines);
                 }
+            } catch (IllegalArgumentException ex) {
+                System.out.println("Not a valid number. " + ex.getMessage());
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Not a valid number entered.");
             } catch (Exception e) {
                 System.out.println("File not found. " + e.getMessage());
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "File not found.");
             }
             request.setAttribute("numberOfLines", numberOfLines);
             request.setAttribute("textToDisplay", list);

@@ -30,10 +30,6 @@ public class ServletFindWord extends HttpServlet {
         List<String> wordsFromFile = new ArrayList<>();
         try (InputStream input = getServletContext().getResourceAsStream("/WEB-INF/sample.txt");
              BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
-            if (input == null) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "File not found.");
-                return;
-            }
             String searchFor = (request.getParameter("searchWord")).trim();
             if (!searchFor.isEmpty()) {
                 Pattern pattern = Pattern.compile(Pattern.quote(searchFor));
@@ -52,6 +48,7 @@ public class ServletFindWord extends HttpServlet {
             }
         } catch (Exception e) {
             System.out.println("File not found. " + e.getMessage());
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "File not found.");
         }
         request.getRequestDispatcher("servletFindWordResult.jsp").forward(request, response);
     }
