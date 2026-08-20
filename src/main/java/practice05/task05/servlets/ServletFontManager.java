@@ -1,6 +1,5 @@
 package practice05.task05.servlets;
 
-import com.sun.jdi.connect.IllegalConnectorArgumentsException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
