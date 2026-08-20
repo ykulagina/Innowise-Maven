@@ -4,6 +4,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import practice05.task05.model.Book;
+import practice09.model.Course;
 
 public class SessionFactoryUtil {
     private static SessionFactory sessionFactory;
@@ -14,6 +15,7 @@ public class SessionFactoryUtil {
             try {
                 Configuration configuration = new Configuration().configure();
                 configuration.addAnnotatedClass(Book.class);
+                configuration.addAnnotatedClass(Course.class);
 
                 StandardServiceRegistryBuilder builder =
                         new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
