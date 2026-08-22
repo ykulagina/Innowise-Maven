@@ -1,0 +1,34 @@
+package practice06.task06.dao;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import practice06.task06.SessionFactoryUtil;
+import practice06.task06.model.Discipline;
+
+public class DisciplineDAOImpl implements DisciplineDAO {
+    @Override
+    public Discipline findById(long id) {
+        Session session = SessionFactoryUtil.getSessionFactory().openSession();
+        Discipline discipline = session.get(Discipline.class, id);
+        session.close();
+        return discipline;
+    }
+
+    @Override
+    public void save(Discipline discipline) {
+        Session session = SessionFactoryUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.persist(discipline);
+        transaction.commit();
+        session.close();
+    }
+
+    @Override
+    public void delete(Discipline discipline) {
+        Session session = SessionFactoryUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.remove(discipline);
+        transaction.commit();
+        session.close();
+    }
+}
