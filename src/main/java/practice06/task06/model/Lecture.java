@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,8 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.JdbcType;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.Type;
 import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
 import java.util.Objects;
@@ -29,7 +28,7 @@ public class Lecture {
     @JoinColumn(name = "discipline_id")
     private Discipline discipline;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
@@ -100,7 +99,7 @@ public class Lecture {
 
     @Override
     public String toString() {
-        return "Lecture{ " + this.discipline + ", " + this.teacher + ", " + this.auditorium + ", " + this.dayOfWeek + "}";
+        return "Lecture { " + this.discipline + ", Teacher {name: " + this.teacher.getName() + ", id: " + this.teacher.getId() + "}, " + this.auditorium + ", " + this.dayOfWeek + "}";
     }
 
     @Override

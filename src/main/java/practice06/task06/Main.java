@@ -10,6 +10,8 @@ import practice06.task06.service.DisciplineService;
 import practice06.task06.service.LectureService;
 import practice06.task06.service.TeacherService;
 
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -17,13 +19,18 @@ public class Main {
         AuditoriumService auditoriumService = new AuditoriumService();
         LectureService lectureService = new LectureService();
         TeacherService teacherService = new TeacherService();
-//        Discipline d1 = disciplineService.findDiscipline(1);
-//        Auditorium a1 = auditoriumService.findAuditorium(1);
 
-        Lecture l1 = lectureService.findLecture(1);
-        Teacher t1 = new Teacher("T2");
-        t1.addLecture(l1);
-        teacherService.saveTeacher(t1);
-        System.out.println(teacherService.findTeacher(t1.getId()));
+//        DBReader db = new DBReader();
+//        String query = "SELECT disciplines.name " +
+//                "FROM disciplines JOIN lectures on disciplines.id = lectures.discipline_id " +
+//                "WHERE lectures.teacher_id = ?";
+//        Teacher t = teacherService.findTeacher(5);
+//        List<Discipline> disciplines = db.getTeachersDisciplines(t, query);
+//        System.out.println(disciplines);
+
+        Teacher t = teacherService.findTeacher(4);
+        t.addDiscipline(disciplineService.findDiscipline(2));
+        teacherService.updateTeacher(t);
+        System.out.println(teacherService.findTeacher(4));
     }
 }

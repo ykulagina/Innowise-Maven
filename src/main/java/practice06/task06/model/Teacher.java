@@ -2,9 +2,13 @@ package practice06.task06.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -17,10 +21,17 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String name;
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.MERGE)
+
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Lecture> lectures = new ArrayList<>();
-//    private List<Discipline> disciplines;
+
+    @ManyToMany(cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "teachers_disciplines",
+            joinColumns = @JoinColumn(name = "teacher_id"),
+            inverseJoinColumns = @JoinColumn(name = "discipline_id"))
+    private List<Discipline> disciplines = new ArrayList<>();
 
     public Teacher(String name) {
         this.name = name;
@@ -50,14 +61,30 @@ public class Teacher {
 
     public void addLecture(Lecture lecture) {
         this.lectures.add(lecture);
+        lecture.setTeacher(this);
     }
 
     public void deleteLecture(Lecture lecture) {
         this.lectures.remove(lecture);
+        lecture.setTeacher(null);
+    }
+
+    public List<Discipline> getDisciplines() {
+        return disciplines;
+    }
+
+    public void addDiscipline(Discipline discipline) {
+        this.disciplines.add(discipline);
+        discipline.getTeachers().add(this);
+    }
+
+    public void deleteDiscipline(Discipline discipline) {
+        this.disciplines.remove(discipline);
+        discipline.getTeachers().remove(this);
     }
 
     @Override
     public String toString() {
-        return "Teacher {id: " + this.id + ", name: " + this.name + "}";
+        return "Teacher {id: " + this.id + ", name: " + this.name + ", Lectures: " + this.lectures + ", Disciplines: " + this.disciplines + "}";
     }
 }
