@@ -4,6 +4,8 @@ import practice06.task06.dao.TeacherDAO;
 import practice06.task06.dao.TeacherDAOImlp;
 import practice06.task06.model.Teacher;
 
+import java.util.List;
+
 public class TeacherService {
     private TeacherDAO teacherDAO = new TeacherDAOImlp();
 
@@ -11,6 +13,10 @@ public class TeacherService {
 
     public Teacher findTeacher(long id) {
         return this.teacherDAO.findById(id);
+    }
+
+    public List<Teacher> findAllTeachers() {
+        return this.teacherDAO.findAll();
     }
 
     public void saveTeacher(Teacher teacher) {

@@ -56,6 +56,6 @@ public class Discipline {
 
     @Override
     public String toString() {
-        return "Discipline {id: " + this.id + ", name: " + this.name + "}";
+        return this.name;
     }
 }

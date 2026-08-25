@@ -5,6 +5,9 @@ import org.hibernate.Transaction;
 import practice06.task06.SessionFactoryUtil;
 import practice06.task06.model.Auditorium;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AuditoriumDAOImpl implements AuditoriumDAO {
     @Override
     public Auditorium findById(long id) {
@@ -12,6 +15,15 @@ public class AuditoriumDAOImpl implements AuditoriumDAO {
         Auditorium auditorium = session.get(Auditorium.class, id);
         session.close();
         return auditorium;
+    }
+
+    @Override
+    public List<Auditorium> findAll() {
+        List<Auditorium> auditoria = new ArrayList<>();
+        Session session = SessionFactoryUtil.getSessionFactory().openSession();
+        auditoria = session.createQuery("From Auditorium").list();
+        session.close();
+        return auditoria;
     }
 
     @Override

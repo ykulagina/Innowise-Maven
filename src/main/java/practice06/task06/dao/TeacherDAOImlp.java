@@ -5,6 +5,8 @@ import org.hibernate.Transaction;
 import practice06.task06.SessionFactoryUtil;
 import practice06.task06.model.Teacher;
 
+import java.util.List;
+
 public class TeacherDAOImlp implements TeacherDAO {
     @Override
     public Teacher findById(long id) {
@@ -12,6 +14,14 @@ public class TeacherDAOImlp implements TeacherDAO {
         Teacher teacher = session.get(Teacher.class, id);
         session.close();
         return teacher;
+    }
+
+    @Override
+    public List<Teacher> findAll() {
+        Session session = SessionFactoryUtil.getSessionFactory().openSession();
+        List<Teacher> teachers = session.createQuery("From Teacher").list();
+        session.close();
+        return teachers;
     }
 
     @Override

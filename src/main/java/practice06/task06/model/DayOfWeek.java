@@ -21,6 +21,6 @@ public enum DayOfWeek {
 
     @Override
     public String toString() {
-        return "Day: " + name() + " / " + this.dayName;
+        return name();
     }
 }

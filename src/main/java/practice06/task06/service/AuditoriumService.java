@@ -4,6 +4,8 @@ import practice06.task06.dao.AuditoriumDAO;
 import practice06.task06.dao.AuditoriumDAOImpl;
 import practice06.task06.model.Auditorium;
 
+import java.util.List;
+
 public class AuditoriumService {
     private AuditoriumDAO auditoriumDAO = new AuditoriumDAOImpl();
 
@@ -11,6 +13,10 @@ public class AuditoriumService {
 
     public Auditorium findAuditorium(long id) {
         return this.auditoriumDAO.findById(id);
+    }
+
+    public List<Auditorium> findAllAuditoria() {
+        return this.auditoriumDAO.findAll();
     }
 
     public void saveAuditorium(Auditorium auditorium) {

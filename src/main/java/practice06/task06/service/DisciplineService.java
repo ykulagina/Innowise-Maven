@@ -4,6 +4,8 @@ import practice06.task06.dao.DisciplineDAO;
 import practice06.task06.dao.DisciplineDAOImpl;
 import practice06.task06.model.Discipline;
 
+import java.util.List;
+
 public class DisciplineService {
     private DisciplineDAO disciplineDAO = new DisciplineDAOImpl();
 
@@ -11,6 +13,10 @@ public class DisciplineService {
 
     public Discipline findDiscipline(long id) {
         return this.disciplineDAO.findById(id);
+    }
+
+    public List<Discipline> findAllDisciplines() {
+        return this.disciplineDAO.findAll();
     }
 
     public void saveDiscipline(Discipline discipline) {

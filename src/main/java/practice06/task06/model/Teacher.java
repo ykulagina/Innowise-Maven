@@ -85,6 +85,6 @@ public class Teacher {
 
     @Override
     public String toString() {
-        return "Teacher {id: " + this.id + ", name: " + this.name + ", Lectures: " + this.lectures + ", Disciplines: " + this.disciplines + "}";
+        return "Teacher: " + this.id + "/" + this.name + ", Disciplines: " + this.disciplines;
     }
 }

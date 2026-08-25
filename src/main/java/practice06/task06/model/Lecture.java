@@ -99,7 +99,7 @@ public class Lecture {
 
     @Override
     public String toString() {
-        return "Lecture { " + this.discipline + ", Teacher {name: " + this.teacher.getName() + ", id: " + this.teacher.getId() + "}, " + this.auditorium + ", " + this.dayOfWeek + "}";
+        return "Lecture {" + this.discipline + ", Teacher: " + this.teacher.getName() + ", Auditorium: " + this.auditorium.getName() + ", " + this.dayOfWeek + "}";
     }
 
     @Override
