@@ -23,16 +23,16 @@ public class Main {
         TeacherQueryService teacherQuery = new TeacherQueryService();
         ScheduleQueryService scheduleQuery = new ScheduleQueryService();
 //        List<Teacher> teachers = teacherQuery.getTeachersWorking("SATURDAY", "203");
-        List<Teacher> teachers2 = teacherQuery.getTeachersNotWorking("MONDAY");
-        for (Teacher t : teachers2) {
-            System.out.println(t);
-        }
+//        List<Teacher> teachers2 = teacherQuery.getTeachersNotWorking("MONDAY");
+//        for (Teacher t : teachers2) {
+//            System.out.println(t);
+//        }
 //        int number = teacherQuery.getNumberOfLecturesPerDiscipline("Pan Kasciushka", "Scala");
 //        System.out.println(number);
 //        List<Integer> students = teacherQuery.getNumberOfStudentsPerDiscipline("Pan Kasciushka", "Scala");
 //        System.out.println(students);
-//        List<DayOfWeek> days = scheduleQuery.getDaysWithSetupNumberOfLectures(2);
-//        System.out.println(days);
+        List<DayOfWeek> days = scheduleQuery.getDaysWithSetupNumberOfLectures(2);
+        System.out.println(days);
 //        List<DayOfWeek> days2 = scheduleQuery.getDaysWithOccupiedAuditoria(1);
 //        System.out.println(days2);
 

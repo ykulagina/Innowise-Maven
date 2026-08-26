@@ -28,7 +28,7 @@ public class TeacherQueryService {
     public List<Teacher> getTeachersWorking(String day, String auditorium) {
         List<Teacher> teachers = new ArrayList<>();
         String q1 = "SELECT teacher_id FROM lectures WHERE lectures.auditorium_id = ? AND lectures.week_day = ?";
-        List<Auditorium> auditoria = auditoriumService.findAllAuditoria();
+        List<Auditorium> auditoria = auditoriumService.findAllAuditoria(); // here Driver is registered already via session (from hybernate.cfg.xml)
         long auditoriumId = 0;
         for (Auditorium a : auditoria) {
             if (Objects.equals(a.getName(), auditorium)) {
@@ -56,6 +56,14 @@ public class TeacherQueryService {
         List<Teacher> teachers = new ArrayList<>();
         String q1 = "SELECT id FROM teachers WHERE id NOT IN (SELECT teachers.id FROM teachers " +
                 "JOIN lectures on teachers.id = lectures.teacher_id WHERE lectures.week_day = ?)";
+        try {
+            Class.forName("org.postgresql.Driver"); //since there is no Session object
+            // (which loads Driver from hybernate.cfg.xml), you should load the Driver explicitly
+            // in order to register Driver for Tomcat
+        } catch (ClassNotFoundException e) {
+            System.err.println("Couldn't load the Driver.");
+            e.printStackTrace();
+        }
         try (Connection connection = DriverManager.getConnection(url, user, password);
              PreparedStatement p1 = connection.prepareStatement(q1)) {
             p1.setObject(1, DayOfWeek.valueOf(day), Types.OTHER);

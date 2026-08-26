@@ -24,6 +24,14 @@ public class ScheduleQueryService {
     public List<DayOfWeek> getDaysWithSetupNumberOfLectures(int lectures) {
         List<DayOfWeek> days = new ArrayList<>();
         String q1 = "SELECT week_day, COUNT(discipline_id) FROM lectures GROUP BY week_day HAVING COUNT(discipline_id) = ?";
+        try {
+            Class.forName("org.postgresql.Driver"); //since there is no Session object
+            // (which loads Driver from hybernate.cfg.xml), you should load the Driver explicitly
+            // in order to register Driver for Tomcat
+        } catch (ClassNotFoundException e) {
+            System.err.println("Couldn't load the Driver.");
+            e.printStackTrace();
+        }
         try (Connection connection = DriverManager.getConnection(url, user, password);
              PreparedStatement p1 = connection.prepareStatement(q1)) {
             p1.setInt(1, lectures);
@@ -42,6 +50,14 @@ public class ScheduleQueryService {
     public List<DayOfWeek> getDaysWithOccupiedAuditoria(int auditoria) {
         List<DayOfWeek> days = new ArrayList<>();
         String q1 = "SELECT week_day, COUNT(auditorium_id) FROM lectures GROUP BY week_day HAVING COUNT(auditorium_id) = ?";
+        try {
+            Class.forName("org.postgresql.Driver"); //since there is no Session object
+            // (which loads Driver from hybernate.cfg.xml), you should load the Driver explicitly
+            // in order to register Driver for Tomcat
+        } catch (ClassNotFoundException e) {
+            System.err.println("Couldn't load the Driver.");
+            e.printStackTrace();
+        }
         try (Connection connection = DriverManager.getConnection(url, user, password);
              PreparedStatement p1 = connection.prepareStatement(q1)) {
             p1.setInt(1, auditoria);
